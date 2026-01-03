@@ -1,18 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500&family=Libre+Caslon+Display&display=swap');
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* Ortak Animasyon Tanımı (Sadece Kartlar İçin) */
+@keyframes rotate-border {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
 body {
     font-family: 'Instrument Sans', sans-serif;
-    background-color: #363C3C;
-    color: #ffffff;
+    background: #363C3C;
+    color: rgba(255, 255, 255, 0.92);
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 40px 20px;
+    overflow-x: hidden;
 }
 
 .container {
@@ -20,10 +29,11 @@ body {
     width: 100%;
 }
 
-/* Navbar */
+/* --- NAVBAR (ORİJİNAL STATİK TASARIM) --- */
+/* --- NAVBAR (HOVER ODAKLI) --- */
 .navbar {
     position: relative;
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.035);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border-radius: 50px;
@@ -33,7 +43,8 @@ body {
     gap: 60px;
     margin: 0 auto 80px;
     max-width: 600px;
-    box-shadow: 0 8px 32px rgba(217, 217, 217, 0.1);
+    z-index: 10;
+    transition: background 0.4s ease, transform 0.4s ease;
 }
 
 .navbar::before {
@@ -42,16 +53,32 @@ body {
     inset: 0;
     border-radius: 50px;
     padding: 1px;
+    /* Orijinal statik gradyan */
     background: linear-gradient(135deg, 
-        rgba(109, 139, 220, 0.4) 0%,
-        rgba(109, 139, 220, 0.5) 44%,
-        rgba(109, 139, 220, 0.1) 86%,
-        rgba(150, 150, 150, 0.5) 100%
+        rgba(109, 139, 220, 0.28) 0%,
+        rgba(109, 139, 220, 0.32) 44%,
+        rgba(109, 139, 220, 0.12) 86%,
+        rgba(150, 150, 150, 0.35) 100%
     );
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
     pointer-events: none;
+    transition: opacity 0.4s ease;
+}
+
+/* --- SADECE HOVER EFEKTİ --- */
+.navbar:hover {
+    background: rgba(255, 255, 255, 0.06); /* Arka plan hafifçe aydınlanır */
+}
+
+.navbar:hover::before {
+    /* Kenarlık daha canlı bir hale gelir */
+    background: linear-gradient(135deg, 
+        rgba(109, 139, 220, 0.6) 0%, 
+        rgba(255, 255, 255, 0.4) 50%, 
+        rgba(109, 139, 220, 0.6) 100%
+    );
 }
 
 .navbar a {
@@ -63,23 +90,26 @@ body {
     transition: all 0.3s ease;
 }
 
-.navbar a.active,
-.navbar a:hover {
-    color: #ffffff;
+.navbar a:hover, .navbar a.active {
+    color: #fff;
+    /* Yazıda hafif bir parlama (glow) */
+    text-shadow: 0 0 10px rgba(109, 139, 220, 0.5);
 }
 
-/* Hero Section */
+/* --- HERO SECTION (STATİK GLOW & GLASSMORPHISM) --- */
 .hero {
     position: relative;
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    background: rgba(255, 255, 255, 0.02); 
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
     border-radius: 40px;
     padding: 80px 60px;
     text-align: center;
     margin: 0 auto 100px;
     max-width: 900px;
-    box-shadow: 0 20px 60px rgba(217, 217, 217, 0.15);
+    z-index: 1;
+    /* Dışarı sızan neon ışık */
+    box-shadow: 0 0 50px rgba(109, 139, 220, 0.08); 
 }
 
 .hero::before {
@@ -87,12 +117,12 @@ body {
     position: absolute;
     inset: 0;
     border-radius: 40px;
-    padding: 1px;
-    background: linear-gradient(135deg, 
+    padding: 1.5px;
+    background: linear-gradient(145deg, 
         rgba(109, 139, 220, 0.4) 0%,
-        rgba(109, 139, 220, 0.5) 44%,
-        rgba(109, 139, 220, 0.1) 86%,
-        rgba(150, 150, 150, 0.5) 100%
+        rgba(109, 139, 220, 0.05) 40%,
+        rgba(255, 255, 255, 0.1) 70%,
+        rgba(109, 139, 220, 0.3) 100%
     );
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
@@ -106,13 +136,14 @@ body {
     font-weight: 400;
     margin-bottom: 30px;
     letter-spacing: 2px;
-    line-height: 1.2;
+    background: linear-gradient(to bottom, #fff, rgba(255,255,255,0.7));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .hero p {
     font-size: 20px;
-    line-height: 1.6;
-    color: rgba(255, 255, 255, 0.85);
+    color: rgba(255, 255, 255, 0.6);
     margin-bottom: 50px;
     max-width: 600px;
     margin-left: auto;
@@ -121,46 +152,81 @@ body {
 
 .cta-button {
     position: relative;
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    background: #363C3C; /* İç renk */
     border: none;
     border-radius: 30px;
     color: #ffffff;
     font-family: 'Instrument Sans', sans-serif;
     font-size: 16px;
     font-weight: 500;
-    padding: 16px 50px;
+    padding: 18px 60px; /* Biraz daha büyük ve güçlü form */
     cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 8px 32px rgba(217, 217, 217, 0.1);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Zıplama efekti */
+    overflow: hidden;
+    z-index: 1;
+    display: inline-block;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
+/* Butonun İçindeki Dönen Işık */
 .cta-button::before {
     content: '';
     position: absolute;
-    inset: 0;
-    border-radius: 30px;
-    padding: 1px;
-    background: linear-gradient(135deg, 
-        rgba(109, 139, 220, 0.4) 0%,
-        rgba(109, 139, 220, 0.5) 44%,
-        rgba(109, 139, 220, 0.1) 86%,
-        rgba(150, 150, 150, 0.5) 100%
+    top: -150%;
+    left: -50%;
+    width: 200%;
+    height: 400%;
+    background: conic-gradient(
+        transparent, 
+        rgba(109, 139, 220, 0.8), 
+        #ffffff, 
+        rgba(109, 139, 220, 0.8), 
+        transparent 30%
     );
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
+    animation: rotate-border 3s linear infinite; /* Normalde daha hızlı döner */
+    z-index: -2;
 }
+
+/* Butonun İç Gövdesi (Stroke kalınlığını belirler) */
+.cta-button::after {
+    content: '';
+    position: absolute;
+    inset: 2px; /* 2px kalınlığında güçlü bir çerçeve */
+    background: #363C3C;
+    border-radius: 28px;
+    z-index: -1;
+    transition: background 0.3s ease;
+}
+
+/* --- HOVER DURUMU (GÜÇLENDİRİLMİŞ) --- */
 
 .cta-button:hover {
-    background: rgba(255, 255, 255, 0.08);
-    box-shadow: 0 12px 40px rgba(217, 217, 217, 0.2);
-    transform: translateY(-2px);
+    transform: scale(1.05); /* Hafifçe büyür */
+    box-shadow: 0 0 30px rgba(109, 139, 220, 0.4); /* Dışa doğru neon parlama */
+    color: #fff;
 }
 
-/* Features Grid */
+.cta-button:hover::before {
+    animation-duration: 1s; /* Işık hızı 3 katına çıkar */
+    background: conic-gradient(
+        transparent, 
+        #6d8bdc, 
+        #ffffff, 
+        #6d8bdc, 
+        transparent 50%
+    );
+}
+
+.cta-button:hover::after {
+    background: #414949; /* İç renk hover'da biraz açılır */
+}
+
+/* Buton tıklandığında hafif basılma hissi */
+.cta-button:active {
+    transform: scale(0.98);
+}
+
+/* --- FEATURE CARDS (ANİMASYONLU BORDER) --- */
 .features {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -171,91 +237,70 @@ body {
 
 .feature-card {
     position: relative;
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    background: #363C3C;
     border-radius: 30px;
     padding: 50px 40px;
-    text-align: center;
+    text-align: left;
     transition: all 0.3s ease;
-    box-shadow: 0 15px 45px rgba(217, 217, 217, 0.12);
+    overflow: hidden;
+    z-index: 1;
 }
 
+/* Dönen Işık Katmanı */
 .feature-card::before {
     content: '';
     position: absolute;
-    inset: 0;
-    border-radius: 30px;
-    padding: 1px;
-    background: linear-gradient(135deg, 
-        rgba(109, 139, 220, 0.4) 0%,
-        rgba(109, 139, 220, 0.5) 44%,
-        rgba(109, 139, 220, 0.1) 86%,
-        rgba(150, 150, 150, 0.5) 100%
-    );
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
+    top: -100%; left: -100%;
+    width: 300%; height: 300%;
+    background: conic-gradient(transparent, rgba(109, 139, 220, 0.4), transparent 30%);
+    animation: rotate-border 7s linear infinite;
+    z-index: -2;
 }
 
-.feature-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 60px rgba(217, 217, 217, 0.2);
+/* Kartın İç Rengi ve Border Boşluğu */
+.feature-card::after {
+    content: '';
+    position: absolute;
+    inset: 1.5px;
+    background: #3c4444;
+    border-radius: 29px;
+    z-index: -1;
+    transition: background 0.3s ease;
+}
+
+.feature-card:hover { transform: translateY(-5px); }
+.feature-card:hover::after { background: #444c4c; }
+.feature-card:hover::before { 
+    animation-duration: 4s; 
+    background: conic-gradient(transparent, rgba(109, 139, 220, 0.8), #ffffff, transparent 40%);
 }
 
 .card-icon {
-    width: 12px;
-    height: 12px;
-    background: rgba(109, 139, 220, 0.8);
+    width: 8px; height: 8px;
+    background: #fff;
     border-radius: 50%;
-    margin: 0 auto 30px;
+    margin-bottom: 25px;
+    opacity: 0.35;
+    position: relative; z-index: 2;
 }
+
+.feature-card h2, .feature-card p { position: relative; z-index: 2; }
 
 .feature-card h2 {
     font-family: 'Libre Caslon Display', serif;
     font-size: 32px;
-    font-weight: 400;
     margin-bottom: 20px;
-    line-height: 1.3;
 }
 
 .feature-card p {
     font-size: 16px;
     line-height: 1.6;
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 0.7);
 }
 
-/* Responsive Design */
+/* Responsive */
 @media (max-width: 768px) {
-    .navbar {
-        gap: 30px;
-        padding: 16px 30px;
-    }
-
-    .navbar a {
-        font-size: 12px;
-    }
-
-    .hero {
-        padding: 60px 40px;
-        margin-bottom: 60px;
-    }
-
-    .hero h1 {
-        font-size: 42px;
-    }
-
-    .hero p {
-        font-size: 18px;
-    }
-
-    .features {
-        grid-template-columns: 1fr;
-        gap: 30px;
-    }
-
-    .feature-card h2 {
-        font-size: 28px;
-    }
+    .navbar { gap: 20px; padding: 16px 20px; max-width: 90%; }
+    .hero h1 { font-size: 42px; }
+    .features { grid-template-columns: 1fr; }
 }
