@@ -446,7 +446,6 @@ body > * {
     }
     .section-header h2 { font-size: 32px; }
 }
-/* Shared sections (match hero/navbar liquid-glass vibe) */
 .section {
     position: relative;
     margin: 0 auto 80px;
@@ -606,7 +605,6 @@ body > * {
     box-shadow: 0 0 0 3px rgba(109, 139, 220, 0.16);
 }
 
-/* Accessibility: visible keyboard focus */
 .navbar a:focus-visible,
 .cta-button:focus-visible {
     outline: 2px solid rgba(109, 139, 220, 0.7);
