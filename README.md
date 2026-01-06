@@ -1,30 +1,28 @@
-# Routina — Product Landing Page (v1)
+# Routina — Landing Page v1
 
-Routina is a minimal landing page concept for a habit and routine tracking app.
+A minimal, glass-inspired landing page for a habit & routine tracking app.
 
-This project focuses on visual clarity, calm UI, and a cold metal / glass aesthetic.
-It is an early version (v1) and intentionally kept simple.
+## What this is
+- Product landing page concept
+- Designed in Figma
+- Built with HTML & CSS
+- Focused on clarity, hierarchy and motion
 
-## ✦ Purpose
-The goal of this project is to explore:
-- Minimal landing page structure
-- Glassmorphism on dark backgrounds
-- Subtle motion and hover interactions
-- Design-to-code consistency
+## What this is not
+- Not a full app
+- Not production-ready backend
+- Not a finished product
 
-This is not a production-ready app — it is a visual and layout-focused concept.
+## Preview
+![Hero section](screenshots/hero-navbar.png)
+![Features](screenshots/features.png)
+![Full page](screenshots/full-page.png)
 
-## ✦ Built With
-- HTML
-- CSS (no frameworks)
-- Custom hover and border animations
+## Live demo
+👉 [View live](https://noirys-dev.github.io/routina-landing-page/)
 
-## ✦ Current Status
-v1 — layout and visual direction completed.  
-Further iterations may include responsiveness refinements and interaction improvements.
+## Status
+v1 — frozen
 
-## ✦ Preview
-You can open `index.html` locally to view the project.
-
-## ✦ Credits
-Designed & built by **noirys.dev**
+---
+Built by noirys.dev
